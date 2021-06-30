@@ -25,10 +25,10 @@ services:
     ports:
         - 8000:80
 
-  pizza-database:
-    image: pizzadatabase
+  pizza-worker:
+    image: pizzaworker
     build:
-      context: PizzaDatabase/
+      context: PizzaWorker/
       dockerfile: Dockerfile
     ports:
         - 80:80

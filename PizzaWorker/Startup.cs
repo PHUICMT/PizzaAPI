@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace PizzaDatabase
+namespace PizzaWorker
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace PizzaDatabase
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PizzaDatabase", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PizzaWorker", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace PizzaDatabase
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PizzaDatabase v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PizzaWorker v1"));
             }
 
             app.UseHttpsRedirection();

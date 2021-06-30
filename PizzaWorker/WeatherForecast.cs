@@ -1,6 +1,6 @@
 using System;
 
-namespace PizzaDatabase
+namespace PizzaWorker
 {
     public class WeatherForecast
     {
