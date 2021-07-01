@@ -7,7 +7,7 @@ services:
       context: PizzaQuery/
       dockerfile: Dockerfile
     ports:
-        - 80:80
+        - 8000:80
 
   pizza-command:
     image: pizzacommand
@@ -15,7 +15,7 @@ services:
       context: PizzaCommand/
       dockerfile: Dockerfile
     ports:
-        - 80:80
+        - 8000:80
 
   pizza-proxy:
     image: pizzaproxy
@@ -31,4 +31,4 @@ services:
       context: PizzaWorker/
       dockerfile: Dockerfile
     ports:
-        - 80:80
+        - 8000:80
