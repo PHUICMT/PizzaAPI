@@ -7,7 +7,7 @@ using System;
 namespace PizzaQuery.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("query/[controller]")]
     public class PizzaController : ControllerBase
     {
         public PizzaController()
@@ -32,7 +32,6 @@ namespace PizzaQuery.Controllers
         public IActionResult Received(Pizza newPizza)
         {
             PizzaService.Add(newPizza);
-            Console.WriteLine(newPizza);
             return CreatedAtAction(nameof(Received), null);
         }
     }

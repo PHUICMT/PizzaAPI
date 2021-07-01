@@ -1,7 +1,7 @@
 {
     "Routes": [
       {
-        "DownstreamPathTemplate": "/Pizza",
+        "DownstreamPathTemplate": "/query/Pizza",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
@@ -11,6 +11,18 @@
         ],
         "UpstreamPathTemplate": "/api/Pizza",
         "UpstreamHttpMethod": [ "Get" ]
+      },
+      {
+        "DownstreamPathTemplate": "/command/Pizza",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 80
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Pizza",
+        "UpstreamHttpMethod": [ "Post" ]
       }
     ],
     "GlobalConfiguration": {

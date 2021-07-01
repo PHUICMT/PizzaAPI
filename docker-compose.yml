@@ -10,13 +10,13 @@ services:
     ports:
         - 80:80
 
-  # pizza-command:
-  #   image: pizzacommand
-  #   build:
-  #     context: PizzaCommand/
-  #     dockerfile: Dockerfile
-  #   ports:
-  #       - 80:80
+  pizza-command:
+    image: pizzacommand
+    build:
+      context: PizzaCommand/
+      dockerfile: Dockerfile
+    ports:
+        - 81:80
 
   pizza-proxy:
     image: pizzaproxy

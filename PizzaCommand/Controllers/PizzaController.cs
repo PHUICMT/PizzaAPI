@@ -7,7 +7,7 @@ namespace PizzaCommand.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("command/[controller]")]
     public class PizzaController : ControllerBase
     {
         private PizzaService _pizzaService;
