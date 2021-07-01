@@ -17,8 +17,8 @@ namespace PizzaProxy
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((context, config) => {
-                    config.AddJsonFile("appsettings.json");
-                    config.AddJsonFile("ocelot.json");
+                    config.AddJsonFile("appsettings.json",true,true);
+                    config.AddJsonFile("ocelot.json",false,false);
                 })
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseStartup<Startup>();

@@ -11,18 +11,6 @@
         ],
         "UpstreamPathTemplate": "/api/Pizza",
         "UpstreamHttpMethod": [ "Get" ]
-      },
-      {
-        "DownstreamPathTemplate": "/Pizza",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "localhost",
-            "Port": 80
-          }
-        ],
-        "UpstreamPathTemplate": "/api/Pizza",
-        "UpstreamHttpMethod": [ "Post" ]
       }
     ],
     "GlobalConfiguration": {
