@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using PizzaQuery.Models;
-using PizzaQuery.Services;
+using PizzaWorker.Models;
+using PizzaWorker.Services;
 
-namespace PizzaQuery.Controllers
+namespace PizzaWorker.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -17,15 +17,12 @@ namespace PizzaQuery.Controllers
         [HttpGet]
         public ActionResult<List<DotPizza>> GetAll() => PizzaService.GetAll();
 
-        [HttpGet("{id}")]
-        public ActionResult<DotPizza> Get(int id)
+        [HttpPost]
+        public IActionResult Transform(List<Pizza> pizzas)
         {
-            var pizza = PizzaService.Get(id);
-
-            if (pizza == null)
-                return NotFound();
-
-            return pizza;
+            PizzaService.TransformData(pizzas);
+            return CreatedAtAction(nameof(Transform), new { total =  pizzas.Count}, pizzas);
         }
+
     }
 }
