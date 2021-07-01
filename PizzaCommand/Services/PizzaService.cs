@@ -27,18 +27,14 @@ namespace PizzaCommand.Services
 
         async public void sender()
         {
-            var newPizza = JsonSerializer.Serialize(Pizzas);
-            Console.WriteLine("newPizza "+newPizza);
+            var newPizza = JsonSerializer.Serialize(Pizzas[Pizzas.Count - 1]);
             var data = new StringContent(newPizza, Encoding.UTF8, "application/json");
-            Console.WriteLine("data "+data);
 
             var url = "http://localhost:80/Pizza";
             using var client = new HttpClient();
 
             var response = await client.PostAsync(url, data);
-            Console.WriteLine("response "+response);
             string result = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine("result "+result);
         }
         public List<Pizza> GetAll() => Pizzas;
     }

@@ -1,9 +1,6 @@
 using PizzaQuery.Models;
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Linq;
-using System.Text.Json;
 
 namespace PizzaQuery.Services
 {
