@@ -27,5 +27,12 @@ namespace PizzaQuery.Controllers
 
             return pizza;
         }
+
+        [HttpPost]
+        public IActionResult Receive()
+        {
+            PizzaService.receive();
+            return CreatedAtAction(nameof(Receive), null);
+        }
     }
 }
