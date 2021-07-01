@@ -30,7 +30,7 @@ namespace PizzaCommand.Services
             var newPizza = JsonSerializer.Serialize(Pizzas[Pizzas.Count - 1]);
             var data = new StringContent(newPizza, Encoding.UTF8, "application/json");
 
-            var url = "http://localhost:80/Pizza";
+            var url = "http://localhost:80/query/Pizza";
             using var client = new HttpClient();
 
             var response = await client.PostAsync(url, data);
