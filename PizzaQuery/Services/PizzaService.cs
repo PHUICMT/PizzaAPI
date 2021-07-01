@@ -1,34 +1,32 @@
 using PizzaQuery.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Net.Http;
 using System.Linq;
+using System.Text.Json;
 
 namespace PizzaQuery.Services
 {
     public static class PizzaService
     {
-        static List<DotPizza> Pizzas { get; }
+        static List<Pizza> Pizzas { get; set; }
         static int nextId = 3;
         static PizzaService()
         {
-            Pizzas = new List<DotPizza>
+            Pizzas = new List<Pizza>
             {
-                new DotPizza { Id = 1, Information = "Classic Italian"},
-                new DotPizza { Id = 2, Information = "Veggie"}
+                new Pizza { Id = 1, Name = "Classic Italian", IsGlutenFree = true},
+                new Pizza { Id = 2, Name = "Veggie",  IsGlutenFree = false}
             };
         }
 
-        public static List<DotPizza> GetAll() => Pizzas;
+        public static List<Pizza> GetAll() => Pizzas;
 
-        public static DotPizza Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
+        public static Pizza Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
 
-        async public static void receive () {
-            using var client = new HttpClient();
-            var content = await client.GetStringAsync("http://localhost:81/Pizza");
-
-            Console.WriteLine("Content : "+content);
+        public static void Add(Pizza pizza)
+        {
+            Pizzas.Add(pizza);
         }
     }
 }
