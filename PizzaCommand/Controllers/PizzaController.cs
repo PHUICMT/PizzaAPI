@@ -19,7 +19,11 @@ namespace PizzaCommand.Controllers
         public IActionResult Create(Pizza pizza)
         {
             PizzaService.Add(pizza);
+            PizzaService.sender();
             return CreatedAtAction(nameof(Create), new { id = pizza.Id }, pizza);
         }
+
+        [HttpGet]
+        public ActionResult<List<Pizza>> GetAll() => PizzaService.GetAll();
     }
 }

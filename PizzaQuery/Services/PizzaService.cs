@@ -1,6 +1,9 @@
 using PizzaQuery.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
+using System.Net.Http;
+// using Newtonsoft.Json;
 
 namespace PizzaQuery.Services
 {
@@ -19,6 +22,13 @@ namespace PizzaQuery.Services
 
         public static List<Pizza> GetAll() => Pizzas;
 
-        public static Pizza Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
+        // public static Pizza Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
+
+        async public static void receive () {
+            using var client = new HttpClient();
+            var content = await client.GetStringAsync("http://localhost:81/Pizza");
+
+            Console.WriteLine("Content : "+content);
+        }
     }
 }

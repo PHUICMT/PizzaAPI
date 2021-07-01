@@ -1,6 +1,9 @@
 using PizzaCommand.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
+using System.Net.Http;
+using System.Text.Json;
 
 namespace PizzaCommand.Services
 {
@@ -21,5 +24,20 @@ namespace PizzaCommand.Services
             pizza.Id = nextId++;
             Pizzas.Add(pizza);
         }
+
+        async public static void sender()
+        {
+            var json = JsonSerializer.Serialize(Pizzas);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var url = "http://localhost:80/Pizza";
+            using var client = new HttpClient();
+
+            var response = await client.PostAsync(url, data);
+
+            string result = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(result);
+        }
+        public static List<Pizza> GetAll() => Pizzas;
     }
 }
