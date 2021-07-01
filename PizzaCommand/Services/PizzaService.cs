@@ -35,6 +35,7 @@ namespace PizzaCommand.Services
 
             var response = await client.PostAsync(url, data);
             string result = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(response);
         }
         public List<Pizza> GetAll() => Pizzas;
     }
