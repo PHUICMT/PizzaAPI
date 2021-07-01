@@ -3,26 +3,26 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Net.Http;
-// using Newtonsoft.Json;
+using System.Linq;
 
 namespace PizzaQuery.Services
 {
     public static class PizzaService
     {
-        static List<Pizza> Pizzas { get; }
+        static List<DotPizza> Pizzas { get; }
         static int nextId = 3;
         static PizzaService()
         {
-            Pizzas = new List<Pizza>
+            Pizzas = new List<DotPizza>
             {
-                new Pizza { Id = 1, Name = "Classic Italian", IsGlutenFree = false },
-                new Pizza { Id = 2, Name = "Veggie", IsGlutenFree = true }
+                new DotPizza { Id = 1, Information = "Classic Italian"},
+                new DotPizza { Id = 2, Information = "Veggie"}
             };
         }
 
-        public static List<Pizza> GetAll() => Pizzas;
+        public static List<DotPizza> GetAll() => Pizzas;
 
-        // public static Pizza Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
+        public static DotPizza Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
 
         async public static void receive () {
             using var client = new HttpClient();

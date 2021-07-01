@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PizzaQuery.Models;
 using PizzaQuery.Services;
-using System;
 
 namespace PizzaQuery.Controllers
 {
@@ -16,18 +14,18 @@ namespace PizzaQuery.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Pizza>> GetAll() => PizzaService.GetAll();
+        public ActionResult<List<DotPizza>> GetAll() => PizzaService.GetAll();
 
-        // [HttpGet("{id}")]
-        // public ActionResult<Pizza> Get(int id)
-        // {
-        //     var pizza = PizzaService.Get(id);
+        [HttpGet("{id}")]
+        public ActionResult<DotPizza> Get(int id)
+        {
+            var pizza = PizzaService.Get(id);
 
-        //     if (pizza == null)
-        //         return NotFound();
+            if (pizza == null)
+                return NotFound();
 
-        //     return pizza;
-        // }
+            return pizza;
+        }
 
         [HttpPost]
         public IActionResult Received()
