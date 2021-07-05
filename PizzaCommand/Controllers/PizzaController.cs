@@ -20,12 +20,8 @@ namespace PizzaCommand.Controllers
         [HttpPost]
         public IActionResult Create(Pizza pizza)
         {
-            _pizzaService.Add(pizza);
-            _pizzaService.sender();
+            _pizzaService.SendMessage(pizza);
             return CreatedAtAction(nameof(Create), new { id = pizza.Id }, pizza);
         }
-
-        // [HttpGet]
-        // public ActionResult<List<Pizza>> GetAll() => _pizzaService.GetAll();
     }
 }
