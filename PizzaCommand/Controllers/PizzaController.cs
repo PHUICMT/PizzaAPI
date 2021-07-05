@@ -25,7 +25,7 @@ namespace PizzaCommand.Controllers
             return CreatedAtAction(nameof(Create), new { id = pizza.Id }, pizza);
         }
 
-        [HttpGet]
-        public ActionResult<List<Pizza>> GetAll() => _pizzaService.GetAll();
+        // [HttpGet]
+        // public ActionResult<List<Pizza>> GetAll() => _pizzaService.GetAll();
     }
 }

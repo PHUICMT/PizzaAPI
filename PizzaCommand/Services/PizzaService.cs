@@ -4,6 +4,8 @@ using System.Text;
 using System.Net.Http;
 using System.Text.Json;
 using System;
+using RabbitMQ.Client;
+using System.Text;
 
 namespace PizzaCommand.Services
 {
@@ -28,15 +30,34 @@ namespace PizzaCommand.Services
         async public void sender()
         {
             var newPizza = JsonSerializer.Serialize(Pizzas[Pizzas.Count - 1]);
-            var data = new StringContent(newPizza, Encoding.UTF8, "application/json");
+            // var data = new StringContent(newPizza, Encoding.UTF8, "application/json");
 
-            var url = "http://localhost:80/query/Pizza";
-            using var client = new HttpClient();
+            // var url = "http://localhost:80/query/Pizza";
+            // using var client = new HttpClient();
 
-            var response = await client.PostAsync(url, data);
-            string result = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine(response);
+            // var response = await client.PostAsync(url, data);
+            // string result = response.Content.ReadAsStringAsync().Result;
+            // Console.WriteLine(response);
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using(var connection = factory.CreateConnection())
+            using(var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queue: "Sender",
+                                    durable: false,
+                                    exclusive: false,
+                                    autoDelete: false,
+                                    arguments: null);
+
+                // string message = "Kwaii";
+                var body = Encoding.UTF8.GetBytes(newPizza);
+
+                channel.BasicPublish(exchange: "",
+                                    routingKey: "Sender",
+                                    basicProperties: null,
+                                    body: body);
+            }
+            }
         }
-        public List<Pizza> GetAll() => Pizzas;
-    }
+        // public List<Pizza> GetAll() => Pizzas; 
+    
 }
