@@ -42,7 +42,7 @@ namespace PizzaCommand.Services
             using(var connection = factory.CreateConnection())
             using(var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: "Sender",
+                channel.QueueDeclare(queue: "pizzaAPI",
                                     durable: false,
                                     exclusive: false,
                                     autoDelete: false,
@@ -52,7 +52,7 @@ namespace PizzaCommand.Services
                 var body = Encoding.UTF8.GetBytes(newPizza);
 
                 channel.BasicPublish(exchange: "",
-                                    routingKey: "Sender",
+                                    routingKey: "pizzaAPI",
                                     basicProperties: null,
                                     body: body);
             }

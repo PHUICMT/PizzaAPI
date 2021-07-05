@@ -1,6 +1,10 @@
 using PizzaQuery.Models;
 using System.Collections.Generic;
 using System.Linq;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System;
+using System.Text;
 
 namespace PizzaQuery.Services
 {
@@ -25,5 +29,6 @@ namespace PizzaQuery.Services
         {
             Pizzas.Add(pizza);
         }
+
     }
 }
