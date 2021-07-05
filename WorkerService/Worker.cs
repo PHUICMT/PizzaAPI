@@ -29,11 +29,11 @@ namespace WorkerService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                Received();
-                await Task.Delay(1000, stoppingToken);
+                await Task.Run(() => Received());
+                // await Task.Delay(1000, stoppingToken);
             }
         }
-    public static void Received()
+        async public static void Received()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
@@ -50,14 +50,17 @@ namespace WorkerService
                 {
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
+                    Console.WriteLine("Message :  " + message);
                     Tranfrom(message);
+                    Insert(convertedMessage);
                 };
                 channel.BasicConsume(queue: "pizzaAPI",
                                     autoAck: true,
                                     consumer: consumer);
+
             }
         }
-        public static void Tranfrom(string inputMessage)
+        async public static void Tranfrom(string inputMessage)
         {
             Pizza message = JsonSerializer.Deserialize<Pizza>(inputMessage);
             convertedMessage = new DotPizza
@@ -65,20 +68,43 @@ namespace WorkerService
                 Id = message.Id,
                 Information = "Name:" + message.Name + " | IsGlutenFree:" + message.IsGlutenFree
             };
+            Console.WriteLine("+++++ " + JsonSerializer.Serialize(convertedMessage));
         }
 
-        async public static void RedisConnection()
+        async public static void Insert(DotPizza newPizza)
         {
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {
                    EndPoints = { "localhost:6379" }
                });
-
             var db = redis.GetDatabase();
-            var pong = await db.PingAsync();
-            Console.WriteLine(pong);
-
+            string key = newPizza.Id.ToString();
+            await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
         }
+
+        // async public static void RedisConnection()
+        // {
+        //     ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
+        //        new ConfigurationOptions
+        //        {
+        //            EndPoints = { "localhost:6379" }
+        //        });
+
+        //     var db = redis.GetDatabase();
+
+        //     var keys = redis.GetServer("localhost", 6379).Keys();
+
+        //     string[] keysArr = keys.Select(key => (string)key).ToArray();
+
+        //     foreach (string key in keysArr)
+        //     {
+        //         Console.WriteLine(db.StringGet(key));
+        //     }
+
+        //     var pong = await db.PingAsync();
+        //     Console.WriteLine(redis);
+
+        // }
     }
 }
