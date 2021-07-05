@@ -1,5 +1,4 @@
 using PizzaCommand.Models;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using RabbitMQ.Client;

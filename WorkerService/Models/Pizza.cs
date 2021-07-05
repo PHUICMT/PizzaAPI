@@ -1,4 +1,4 @@
-namespace PizzaCommand.Models
+namespace WorkerService.Models
 {
     public class Pizza
     {

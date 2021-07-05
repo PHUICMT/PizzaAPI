@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaCommand", "PizzaComman
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaQuery", "PizzaQuery\PizzaQuery.csproj", "{BE1B8D5D-B65E-4B43-9EDF-00614C0E78A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService", "WorkerService\WorkerService.csproj", "{D7665AC8-8EA2-446A-9E96-6D25460B68C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{BE1B8D5D-B65E-4B43-9EDF-00614C0E78A9}.Release|x64.Build.0 = Release|Any CPU
 		{BE1B8D5D-B65E-4B43-9EDF-00614C0E78A9}.Release|x86.ActiveCfg = Release|Any CPU
 		{BE1B8D5D-B65E-4B43-9EDF-00614C0E78A9}.Release|x86.Build.0 = Release|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Debug|x64.Build.0 = Debug|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Release|x64.ActiveCfg = Release|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Release|x64.Build.0 = Release|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{D7665AC8-8EA2-446A-9E96-6D25460B68C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
