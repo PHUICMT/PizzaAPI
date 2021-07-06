@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "F461kEIrDP2YHz43hWa3z+eIIfgBnR8vY0z/tsvYhLS6dmcHq3GeqxjF4saBdjItFIZQk8JYxJkS0kCFOEY8gQ==",
+  "success": true,
+  "projectFilePath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/PizzaCommand.csproj",
+  "expectedPackageFiles": [
+    "/root/.nuget/packages/rabbitmq.client/6.2.2/rabbitmq.client.6.2.2.nupkg.sha512",
+    "/root/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/root/.nuget/packages/system.threading.channels/4.7.1/system.threading.channels.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,33 +1,46 @@
 using PizzaQuery.Models;
 using System.Collections.Generic;
 using System.Linq;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
+using StackExchange.Redis;
 using System;
-using System.Text;
+using System.Text.Json;
 
 namespace PizzaQuery.Services
 {
     public static class PizzaService
     {
-        static List<Pizza> Pizzas { get; set; }
-        static int nextId = 3;
-        static PizzaService()
-        {
-            Pizzas = new List<Pizza>
-            {
-                new Pizza { Id = 1, Name = "Classic Italian", IsGlutenFree = true},
-                new Pizza { Id = 2, Name = "Veggie",  IsGlutenFree = false}
-            };
+        static List<DotPizza> Pizzas { get; set; }
+
+        public static List<DotPizza> GetAll(){
+            Connect();
+            return Pizzas;
+        } 
+
+        public static DotPizza Get(int id) {
+            Connect();
+            return Pizzas.FirstOrDefault(p => p.Id == id);
         }
 
-        public static List<Pizza> GetAll() => Pizzas;
-
-        public static Pizza Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
-
-        public static void Add(Pizza pizza)
+        public static bool Connect()
         {
-            Pizzas.Add(pizza);
+            Pizzas =  new List<DotPizza>();
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
+               new ConfigurationOptions
+               {
+                   EndPoints = { "localhost:6379" }
+               });
+            var db = redis.GetDatabase();
+            var endPoint = redis.GetEndPoints().First();
+            RedisKey[] keys = redis.GetServer(endPoint).Keys(pattern: "*").ToArray();
+            var server = redis.GetServer(endPoint);
+            foreach (var key in server.Keys())
+            {
+                string value = db.StringGet(key);
+                DotPizza newDotPizza = JsonSerializer.Deserialize<DotPizza>(value);
+                Pizzas.Add(newDotPizza);
+                // Console.WriteLine(value);
+            }
+            return true;
         }
 
     }
