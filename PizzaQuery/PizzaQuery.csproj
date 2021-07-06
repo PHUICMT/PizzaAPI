@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
-<<<<<<< HEAD
-=======
     <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
->>>>>>> a8aef5a20b72e50a1bf89ddd95ea20a98230c6b9
   </ItemGroup>
 
 </Project>

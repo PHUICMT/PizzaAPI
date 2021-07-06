@@ -28,13 +28,5 @@ namespace PizzaQuery.Controllers
 
             return pizza;
         }
-
-        [HttpPost]
-        public IActionResult Received(Pizza newPizza)
-        {
-            Console.WriteLine(newPizza);
-            PizzaService.Add(newPizza);
-            return CreatedAtAction(nameof(Received), null);
-        }
     }
 }
