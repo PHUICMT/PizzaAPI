@@ -15,10 +15,11 @@ namespace PizzaQuery.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Pizza>> GetAll() => PizzaService.GetAll();
+        public ActionResult<List<DotPizza>> GetAll() => PizzaService.GetAll();
+        
 
         [HttpGet("{id}")]
-        public ActionResult<Pizza> Get(int id)
+        public ActionResult<DotPizza> Get(int id)
         {
             var pizza = PizzaService.Get(id);
 
@@ -26,14 +27,6 @@ namespace PizzaQuery.Controllers
                 return NotFound();
 
             return pizza;
-        }
-
-        [HttpPost]
-        public IActionResult Received(Pizza newPizza)
-        {
-            Console.WriteLine(newPizza);
-            PizzaService.Add(newPizza);
-            return CreatedAtAction(nameof(Received), null);
         }
     }
 }
