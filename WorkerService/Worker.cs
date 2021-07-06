@@ -18,19 +18,12 @@ namespace WorkerService
     public class Worker : BackgroundService
     {
         public static DotPizza convertedMessage { get; set; }
-        private readonly ILogger<Worker> _logger;
-
-        public Worker(ILogger<Worker> logger)
-        {
-            _logger = logger;
-        }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.Run(() => Received());
-                // await Task.Delay(1000, stoppingToken);
             }
         }
         async public static void Received()
@@ -44,20 +37,20 @@ namespace WorkerService
                                     exclusive: false,
                                     autoDelete: false,
                                     arguments: null);
-
                 var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += (model, ea) =>
+                consumer.Received += async (model, ea) =>
                 {
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine("Message :  " + message);
-                    Tranfrom(message);
-                    Insert(convertedMessage);
+                    Console.WriteLine("Get message : " + message);
+                    // channel.BasicAck(ea.DeliveryTag, false);
+                    await Task.Run(() => Tranfrom(message));
+                    await Task.Run(() => Insert(convertedMessage));
                 };
                 channel.BasicConsume(queue: "pizzaAPI",
                                     autoAck: true,
                                     consumer: consumer);
-
+                channel.QueuePurge("pizzaAPI");
             }
         }
         async public static void Tranfrom(string inputMessage)
@@ -68,7 +61,7 @@ namespace WorkerService
                 Id = message.Id,
                 Information = "Name:" + message.Name + " | IsGlutenFree:" + message.IsGlutenFree
             };
-            Console.WriteLine("+++++ " + JsonSerializer.Serialize(convertedMessage));
+            // Console.WriteLine("Tranfromed => " + JsonSerializer.Serialize(convertedMessage));
         }
 
         async public static void Insert(DotPizza newPizza)
@@ -81,6 +74,9 @@ namespace WorkerService
             var db = redis.GetDatabase();
             string key = newPizza.Id.ToString();
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
+            // Console.WriteLine("----------!Added!----------");
+            // Console.WriteLine(db.StringGet(key));
+            // Console.WriteLine("*****************************************");
         }
 
         // async public static void RedisConnection()
