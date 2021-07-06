@@ -43,7 +43,6 @@ namespace WorkerService
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
                     Console.WriteLine("Get message : " + message);
-                    // channel.BasicAck(ea.DeliveryTag, false);
                     await Task.Run(() => Tranfrom(message));
                     await Task.Run(() => Insert(convertedMessage));
                 };
@@ -61,7 +60,6 @@ namespace WorkerService
                 Id = message.Id,
                 Information = "Name:" + message.Name + " | IsGlutenFree:" + message.IsGlutenFree
             };
-            // Console.WriteLine("Tranfromed => " + JsonSerializer.Serialize(convertedMessage));
         }
 
         async public static void Insert(DotPizza newPizza)
@@ -74,33 +72,6 @@ namespace WorkerService
             var db = redis.GetDatabase();
             string key = newPizza.Id.ToString();
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
-            // Console.WriteLine("----------!Added!----------");
-            // Console.WriteLine(db.StringGet(key));
-            // Console.WriteLine("*****************************************");
         }
-
-        // async public static void RedisConnection()
-        // {
-        //     ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
-        //        new ConfigurationOptions
-        //        {
-        //            EndPoints = { "localhost:6379" }
-        //        });
-
-        //     var db = redis.GetDatabase();
-
-        //     var keys = redis.GetServer("localhost", 6379).Keys();
-
-        //     string[] keysArr = keys.Select(key => (string)key).ToArray();
-
-        //     foreach (string key in keysArr)
-        //     {
-        //         Console.WriteLine(db.StringGet(key));
-        //     }
-
-        //     var pong = await db.PingAsync();
-        //     Console.WriteLine(redis);
-
-        // }
     }
 }
