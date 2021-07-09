@@ -28,7 +28,7 @@ namespace WorkerService
         }
         async public static void Received()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost", Port = 15672 };
+            var factory = new ConnectionFactory() { HostName = "rabbitmq", Port = 15672 };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
@@ -67,7 +67,7 @@ namespace WorkerService
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {
-                   EndPoints = { "localhost:6379" }
+                   EndPoints = { "redis:6379" }
                });
             var db = redis.GetDatabase();
             string key = newPizza.Guid;
