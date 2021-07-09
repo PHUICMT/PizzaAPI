@@ -57,7 +57,7 @@ namespace WorkerService
             Pizza message = JsonSerializer.Deserialize<Pizza>(inputMessage);
             convertedMessage = new DotPizza
             {
-                Id = message.Id,
+                Guid = message.Guid,
                 Information = "Name:" + message.Name + " | IsGlutenFree:" + message.IsGlutenFree
             };
         }
@@ -70,7 +70,7 @@ namespace WorkerService
                    EndPoints = { "localhost:6379" }
                });
             var db = redis.GetDatabase();
-            string key = newPizza.Id.ToString();
+            string key = newPizza.Guid;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
         }
     }

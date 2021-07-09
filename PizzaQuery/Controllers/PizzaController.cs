@@ -18,10 +18,10 @@ namespace PizzaQuery.Controllers
         public ActionResult<List<DotPizza>> GetAll() => PizzaService.GetAll();
         
 
-        [HttpGet("{id}")]
-        public ActionResult<DotPizza> Get(int id)
+        [HttpGet("{guid}")]
+        public ActionResult<DotPizza> Get(string guid)
         {
-            var pizza = PizzaService.Get(id);
+            var pizza = PizzaService.Get(guid);
 
             if (pizza == null)
                 return NotFound();
