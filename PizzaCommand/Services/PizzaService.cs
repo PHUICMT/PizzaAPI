@@ -2,16 +2,15 @@ using PizzaCommand.Models;
 using System.Text;
 using System.Text.Json;
 using RabbitMQ.Client;
+using System;
 
 namespace PizzaCommand.Services
 {
     public class PizzaService
     {
-        public static int nextId = 0;
         public void SendMessage(Pizza pizza)
         {
-            nextId++;
-            pizza.Id = nextId;
+            pizza.Guid = Guid.NewGuid().ToString();
             var newPizza = JsonSerializer.Serialize(pizza);
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())

@@ -20,7 +20,7 @@ namespace PizzaCommand.Controllers
         public IActionResult Create(Pizza pizza)
         {
             _pizzaService.SendMessage(pizza);
-            return CreatedAtAction(nameof(Create), new { id = pizza.Id }, pizza);
+            return CreatedAtAction(nameof(Create), new { id = pizza.Guid }, pizza);
         }
     }
 }

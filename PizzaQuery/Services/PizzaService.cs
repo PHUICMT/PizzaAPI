@@ -16,9 +16,9 @@ namespace PizzaQuery.Services
             return Pizzas;
         } 
 
-        public static DotPizza Get(int id) {
+        public static DotPizza Get(string guid) {
             Connect();
-            return Pizzas.FirstOrDefault(p => p.Id == id);
+            return Pizzas.FirstOrDefault(p => p.Guid == guid);
         }
 
         public static bool Connect()
@@ -38,7 +38,6 @@ namespace PizzaQuery.Services
                 string value = db.StringGet(key);
                 DotPizza newDotPizza = JsonSerializer.Deserialize<DotPizza>(value);
                 Pizzas.Add(newDotPizza);
-                // Console.WriteLine(value);
             }
             return true;
         }
