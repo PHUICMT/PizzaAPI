@@ -5,7 +5,7 @@
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
-            "Host": "localhost",
+            "Host": "pizza-query",
             "Port": 8002
           }
         ],
@@ -17,7 +17,7 @@
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
-            "Host": "localhost",
+            "Host": "pizza-query",
             "Port": 8002
           }
         ],
@@ -29,7 +29,7 @@
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
-            "Host": "localhost",
+            "Host": "pizza-command",
             "Port": 8001
           }
         ],
@@ -38,6 +38,6 @@
       }
     ],
     "GlobalConfiguration": {
-      "BaseUrl": "http://localhost:8000"
+      "BaseUrl": "http://127.0.0.1:8000"
     }
   }

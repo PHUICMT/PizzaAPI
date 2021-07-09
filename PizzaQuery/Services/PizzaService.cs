@@ -27,7 +27,7 @@ namespace PizzaQuery.Services
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {
-                   EndPoints = { "localhost:6379" }
+                   EndPoints = { "redis:6379" }
                });
             var db = redis.GetDatabase();
             var endPoint = redis.GetEndPoints().First();
