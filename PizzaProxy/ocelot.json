@@ -6,10 +6,22 @@
         "DownstreamHostAndPorts": [
           {
             "Host": "localhost",
-            "Port": 80
+            "Port": 8002
           }
         ],
         "UpstreamPathTemplate": "/api/Pizza",
+        "UpstreamHttpMethod": [ "Get" ]
+      },
+      {
+        "DownstreamPathTemplate": "/query/Pizza/{guid}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 8002
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Pizza/{guid}",
         "UpstreamHttpMethod": [ "Get" ]
       },
       {
@@ -18,7 +30,7 @@
         "DownstreamHostAndPorts": [
           {
             "Host": "localhost",
-            "Port": 80
+            "Port": 8001
           }
         ],
         "UpstreamPathTemplate": "/api/Pizza",
