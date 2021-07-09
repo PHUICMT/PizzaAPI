@@ -25,20 +25,25 @@ services:
     ports:
         - 8000:80
 
+  redis:
+    image: redis:latest
+    hostname: redis
+    ports:
+      - 6379:6379
+  
+  rabbitmq: # login guest:guest
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+
   worker-service:
     image: workerservice
     build:
       context: WorkerService/
       dockerfile: Dockerfile
-
-  redis:
-    image: redis:latest
-    ports:
-      - 6379:6379
-  
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    ports:
-        - 5672:5672
-        - 15672:15672
+    depends_on:
+      - rabbitmq
+      - redis
 
