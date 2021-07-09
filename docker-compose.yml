@@ -3,12 +3,11 @@ version: '3.5'
 services:
   pizza-query:
     image: pizzaquery
-    network_mode: bridge
     build:
       context: PizzaQuery/
       dockerfile: Dockerfile
     ports:
-        - 80:80
+        - 8002:80
 
   pizza-command:
     image: pizzacommand
@@ -16,22 +15,30 @@ services:
       context: PizzaCommand/
       dockerfile: Dockerfile
     ports:
-        - 81:80
+        - 8001:80
 
   pizza-proxy:
     image: pizzaproxy
-    network_mode: bridge
     build:
       context: PizzaProxy/
       dockerfile: Dockerfile
     ports:
         - 8000:80
 
-  # pizza-worker:
-  #   image: pizzaworker
-  #   build:
-  #     context: PizzaWorker/
-  #     dockerfile: Dockerfile
-  #   ports:
-  #       - 80:80
+  worker-service:
+    image: workerservice
+    build:
+      context: WorkerService/
+      dockerfile: Dockerfile
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+  
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+        - 5672:5672
+        - 15672:15672
 

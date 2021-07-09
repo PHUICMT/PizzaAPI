@@ -28,7 +28,7 @@ namespace WorkerService
         }
         async public static void Received()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "localhost", Port = 15672 };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
