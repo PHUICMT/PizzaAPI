@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+
+  redis:
+    image: redis:latest
+    hostname: redis
+    ports:
+      - 6379:6379
+  
+  rabbitmq: # login guest:guest
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+    
+
