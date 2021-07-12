@@ -1,43 +1,43 @@
 {
     "Routes": [
       {
-        "DownstreamPathTemplate": "/query/Pizza",
+        "DownstreamPathTemplate": "/query/pizza",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
             "Host": "pizza-query",
-            "Port": 8002
+            "Port": 80
           }
         ],
-        "UpstreamPathTemplate": "/api/Pizza",
+        "UpstreamPathTemplate": "/api/pizza",
         "UpstreamHttpMethod": [ "Get" ]
       },
       {
-        "DownstreamPathTemplate": "/query/Pizza/{guid}",
+        "DownstreamPathTemplate": "/query/pizza/{guid}",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
             "Host": "pizza-query",
-            "Port": 8002
+            "Port": 80
           }
         ],
-        "UpstreamPathTemplate": "/api/Pizza/{guid}",
+        "UpstreamPathTemplate": "/api/pizza/{guid}",
         "UpstreamHttpMethod": [ "Get" ]
       },
       {
-        "DownstreamPathTemplate": "/command/Pizza",
+        "DownstreamPathTemplate": "/command/pizza",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
             "Host": "pizza-command",
-            "Port": 8001
+            "Port": 80
           }
         ],
-        "UpstreamPathTemplate": "/api/Pizza",
+        "UpstreamPathTemplate": "/api/pizza",
         "UpstreamHttpMethod": [ "Post" ]
       }
     ],
     "GlobalConfiguration": {
-      "BaseUrl": "http://gateway:8000"
+      "BaseUrl": "http://+:8000"
     }
   }
