@@ -42,7 +42,7 @@ namespace WorkerService
                 {
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine("Get message : " + message);
+                    // Console.WriteLine("Get message : " + message);
                     await Task.Run(() => Tranfrom(message));
                     await Task.Run(() => Insert(convertedMessage));
                 };
@@ -60,6 +60,7 @@ namespace WorkerService
                 Guid = message.Guid,
                 Information = "Name:" + message.Name + " | IsGlutenFree:" + message.IsGlutenFree
             };
+             Console.WriteLine("Guid: " + convertedMessage.Guid + " STEP 3 Recieved. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
         }
 
         async public static void Insert(DotPizza newPizza)
@@ -72,6 +73,7 @@ namespace WorkerService
             var db = redis.GetDatabase();
             string key = newPizza.Guid;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
+            Console.WriteLine("Guid: " + key + " STEP 4 Send to Redis. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
         }
     }
 }
