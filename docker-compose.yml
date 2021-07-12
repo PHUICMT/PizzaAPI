@@ -25,31 +25,15 @@ services:
     ports:
         - 8000:80
 
-  redis:
-    image: redis:latest
-    hostname: redis
-    ports:
-      - 6379:6379
-  
-  rabbitmq: # login guest:guest
-    image: rabbitmq:3-management-alpine
-    hostname: rabbitmq
-    ports:
-      - 5672:5672
-      - 15672:15672
-    healthcheck:
-      test: rabbitmq-diagnostics -q ping
-      interval: 30s
-      timeout: 10s
-      retries: 5
-
   worker-service:
     image: workerservice
     restart: on-failure
-    depends_on:
-      - rabbitmq
-      - redis
     build:
       context: WorkerService/
       dockerfile: Dockerfile
+
+networks:
+  default:
+    external: true
+    name: pizzaapi_default
 
