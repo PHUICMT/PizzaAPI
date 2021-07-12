@@ -22,7 +22,7 @@
       "dotnetRunMessages": "true",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "pizza-query:8002",
+      "applicationUrl": "pizza-query:80",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
