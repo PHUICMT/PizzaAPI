@@ -37,13 +37,19 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   worker-service:
     image: workerservice
-    build:
-      context: WorkerService/
-      dockerfile: Dockerfile
+    restart: on-failure
     depends_on:
       - rabbitmq
       - redis
+    build:
+      context: WorkerService/
+      dockerfile: Dockerfile
 
