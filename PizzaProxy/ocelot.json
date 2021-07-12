@@ -1,0 +1,43 @@
+{
+    "Routes": [
+      {
+        "DownstreamPathTemplate": "/query/pizza",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "pizza-query",
+            "Port": 80
+          }
+        ],
+        "UpstreamPathTemplate": "/api/pizza",
+        "UpstreamHttpMethod": [ "Get" ]
+      },
+      {
+        "DownstreamPathTemplate": "/query/pizza/{guid}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "pizza-query",
+            "Port": 80
+          }
+        ],
+        "UpstreamPathTemplate": "/api/pizza/{guid}",
+        "UpstreamHttpMethod": [ "Get" ]
+      },
+      {
+        "DownstreamPathTemplate": "/command/pizza",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "pizza-command",
+            "Port": 80
+          }
+        ],
+        "UpstreamPathTemplate": "/api/pizza",
+        "UpstreamHttpMethod": [ "Post" ]
+      }
+    ],
+    "GlobalConfiguration": {
+      "BaseUrl": "http://+:8000"
+    }
+  }

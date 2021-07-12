@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+  pizza-query:
+    image: pizzaquery
+    build:
+      context: PizzaQuery/
+      dockerfile: Dockerfile
+    ports:
+        - 8002:80
+
+  pizza-command:
+    image: pizzacommand
+    build:
+      context: PizzaCommand/
+      dockerfile: Dockerfile
+    ports:
+        - 8001:80
+
+  pizza-proxy:
+    image: pizzaproxy
+    build:
+      context: PizzaProxy/
+      dockerfile: Dockerfile
+    ports:
+        - 8000:80
+
+  worker-service:
+    image: workerservice
+    restart: on-failure
+    build:
+      context: WorkerService/
+      dockerfile: Dockerfile
+
+networks:
+  default:
+    external: true
+    name: pizzaapi_default
+
