@@ -4,25 +4,28 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using StackExchange.Redis;
 using System.Text;
 using System.Text.Json;
+using Serilog;
+using Serilog.Events;
 
 namespace WorkerService
 {
     public class Worker : BackgroundService
     {
-        private static ILogger<Worker> _logger;
+       
         public static DotPizza convertedMessage { get; set; }
 
         public Worker()
         {
-            ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-            loggerFactory.AddFile("Logs/log-{Date}.txt");
-            _logger = loggerFactory.CreateLogger<Worker>();
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .Enrich.FromLogContext()
+            .WriteTo.Console()
+            .CreateLogger();
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -64,7 +67,7 @@ namespace WorkerService
                 Guid = message.Guid,
                 Information = "Name:" + message.Name + " | IsGlutenFree:" + message.IsGlutenFree
             };
-            _logger.LogInformation("|Guid: [" + convertedMessage.Guid + "] STEP 3 Recieved. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            Log.Information("|Guid: [" + convertedMessage.Guid + "] STEP 3 Recieved. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
         }
 
         async public static void Insert(DotPizza newPizza)
@@ -77,7 +80,7 @@ namespace WorkerService
             var db = redis.GetDatabase();
             string key = newPizza.Guid;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
-            _logger.LogInformation("|Guid: [" + key + "] STEP 4 Send to Redis. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
         }
     }
 }

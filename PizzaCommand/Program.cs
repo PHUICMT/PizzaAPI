@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using System;
 using Serilog;
-using Serilog.Events;
 
 namespace PizzaCommand
 {
