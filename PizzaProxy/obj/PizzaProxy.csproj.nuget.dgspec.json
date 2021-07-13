@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj": {}
+    "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaProxy/PizzaProxy.csproj": {}
   },
   "projects": {
-    "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj": {
+    "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaProxy/PizzaProxy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj",
-        "projectName": "WorkerService",
-        "projectPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj",
-        "packagesPath": "/home/phu-ubuntu-rtx-on/.nuget/packages/",
-        "outputPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/obj/",
+        "projectUniqueName": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaProxy/PizzaProxy.csproj",
+        "projectName": "PizzaProxy",
+        "projectPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaProxy/PizzaProxy.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaProxy/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/phu-ubuntu-rtx-on/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -38,21 +38,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "Microsoft.Extensions.Hosting": {
+            "Ocelot": {
               "target": "Package",
-              "version": "[5.0.0, )"
-            },
-            "RabbitMQ.Client": {
-              "target": "Package",
-              "version": "[6.2.2, )"
-            },
-            "Serilog.Extensions.Logging.File": {
-              "target": "Package",
-              "version": "[2.0.0, )"
-            },
-            "StackExchange.Redis": {
-              "target": "Package",
-              "version": "[2.2.62, )"
+              "version": "[17.0.0, )"
             }
           },
           "imports": [
@@ -66,6 +54,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
