@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/PizzaCommand.csproj": {}
+    "/home/paicrush/workshop/Coop/logging/Pizza_Logging/PizzaCommand/PizzaCommand.csproj": {}
   },
   "projects": {
-    "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/PizzaCommand.csproj": {
+    "/home/paicrush/workshop/Coop/logging/Pizza_Logging/PizzaCommand/PizzaCommand.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/PizzaCommand.csproj",
+        "projectUniqueName": "/home/paicrush/workshop/Coop/logging/Pizza_Logging/PizzaCommand/PizzaCommand.csproj",
         "projectName": "PizzaCommand",
-        "projectPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/PizzaCommand.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/obj/",
+        "projectPath": "/home/paicrush/workshop/Coop/logging/Pizza_Logging/PizzaCommand/PizzaCommand.csproj",
+        "packagesPath": "/home/paicrush/.nuget/packages/",
+        "outputPath": "/home/paicrush/workshop/Coop/logging/Pizza_Logging/PizzaCommand/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/paicrush/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -41,6 +41,10 @@
             "RabbitMQ.Client": {
               "target": "Package",
               "version": "[6.2.2, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[4.1.0, )"
             }
           },
           "imports": [

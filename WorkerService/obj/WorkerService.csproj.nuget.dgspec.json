@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj": {}
+    "/home/paicrush/workshop/Coop/logging/Pizza_Logging/WorkerService/WorkerService.csproj": {}
   },
   "projects": {
-    "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj": {
+    "/home/paicrush/workshop/Coop/logging/Pizza_Logging/WorkerService/WorkerService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj",
+        "projectUniqueName": "/home/paicrush/workshop/Coop/logging/Pizza_Logging/WorkerService/WorkerService.csproj",
         "projectName": "WorkerService",
-        "projectPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj",
-        "packagesPath": "/home/phu-ubuntu-rtx-on/.nuget/packages/",
-        "outputPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/obj/",
+        "projectPath": "/home/paicrush/workshop/Coop/logging/Pizza_Logging/WorkerService/WorkerService.csproj",
+        "packagesPath": "/home/paicrush/.nuget/packages/",
+        "outputPath": "/home/paicrush/workshop/Coop/logging/Pizza_Logging/WorkerService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/phu-ubuntu-rtx-on/.nuget/NuGet/NuGet.Config"
+          "/home/paicrush/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -45,6 +45,10 @@
             "RabbitMQ.Client": {
               "target": "Package",
               "version": "[6.2.2, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[4.1.0, )"
             },
             "StackExchange.Redis": {
               "target": "Package",

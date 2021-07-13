@@ -3,15 +3,17 @@ using PizzaCommand.Models;
 using PizzaCommand.Services;
 using System;
 using System.Diagnostics;
-
+using Microsoft.Extensions.Logging;
 
 namespace PizzaCommand.Controllers
 {
+
 
     [ApiController]
     [Route("command/[controller]")]
     public class PizzaController : ControllerBase
     {
+
         private PizzaService _pizzaService;
         public PizzaController()
         {
@@ -22,6 +24,7 @@ namespace PizzaCommand.Controllers
         [HttpPost]
         public IActionResult Create(Pizza pizza)
         {
+
             _pizzaService.SendMessage(pizza);
             return CreatedAtAction(nameof(Create), new { id = pizza.Guid }, pizza);
         }

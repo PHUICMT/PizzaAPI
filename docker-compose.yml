@@ -35,5 +35,5 @@ services:
 networks:
   default:
     external: true
-    name: pizzaapi_default
+    name: pizza_logging_default
 

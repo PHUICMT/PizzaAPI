@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/home/phu-ubuntu-rtx-on/.dotnet/store/|arch|/|tfm|",
-      "/home/phu-ubuntu-rtx-on/.nuget/packages"
+      "/home/paicrush/.dotnet/store/|arch|/|tfm|",
+      "/home/paicrush/.nuget/packages"
     ]
   }
 }
