@@ -1,17 +1,24 @@
 using PizzaCommand.Models;
+using RabbitMQ.Client;
+using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
-using RabbitMQ.Client;
 using System;
 
 namespace PizzaCommand.Services
 {
     public class PizzaService
     {
+        private static ILogger<PizzaService> _logger;        
+        public PizzaService() {
+            ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            loggerFactory.AddFile("Logs/log-{Date}.txt");
+            _logger =  loggerFactory.CreateLogger<PizzaService>();
+        }
         public void SendMessage(Pizza pizza)
         {
             pizza.Guid = Guid.NewGuid().ToString();
-            Console.WriteLine("Guid: " + pizza.Guid + " STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            _logger.LogInformation("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             var newPizza = JsonSerializer.Serialize(pizza);
             var factory = new ConnectionFactory() { HostName = "rabbitmq" };
             using (var connection = factory.CreateConnection())
@@ -29,7 +36,7 @@ namespace PizzaCommand.Services
                                     routingKey: "pizzaAPI",
                                     basicProperties: null,
                                     body: body);
-                Console.WriteLine("Guid: " + pizza.Guid + " STEP 2 Service to rabbitmq. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+                 _logger.LogInformation("|Guid: [" + pizza.Guid + "] STEP 2 Service to rabbitmq. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             }
         }
     }
