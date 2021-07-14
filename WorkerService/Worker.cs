@@ -32,6 +32,10 @@ namespace WorkerService
                   .CreateLogger();
         }
 
+
+
+
+        // test
         public static DotPizza convertedMessage { get; set; }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
