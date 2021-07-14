@@ -18,11 +18,8 @@ namespace WorkerService
 {
     public class Worker : BackgroundService
     {
+        public static Serilog.ILogger Log { get; set; }
         public Worker()
-        {
-
-        }
-        public static Serilog.ILogger CreateLog()
         {
             var configuration = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
@@ -30,11 +27,11 @@ namespace WorkerService
                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true)
                .Build();
 
-            var logger = new LoggerConfiguration()
+            Log = new LoggerConfiguration()
                   .ReadFrom.Configuration(configuration)
                   .CreateLogger();
-            return logger;
         }
+
         public static DotPizza convertedMessage { get; set; }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -73,7 +70,6 @@ namespace WorkerService
         }
         async public static void Tranfrom(string inputMessage)
         {
-            var Log = CreateLog();
             Pizza message = JsonSerializer.Deserialize<Pizza>(inputMessage);
             convertedMessage = new DotPizza
             {
@@ -86,7 +82,7 @@ namespace WorkerService
 
         async public static void Insert(DotPizza newPizza)
         {
-            var Log = CreateLog();
+
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {

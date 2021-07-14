@@ -14,10 +14,8 @@ namespace PizzaCommand.Services
 {
     public class PizzaService
     {
+        public Serilog.ILogger Log { get; set; }
         public PizzaService()
-        {
-        }
-        public Serilog.ILogger CreateLog()
         {
             var configuration = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
@@ -25,14 +23,15 @@ namespace PizzaCommand.Services
                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true)
                .Build();
 
-            var logger = new LoggerConfiguration()
+            Log = new LoggerConfiguration()
                   .ReadFrom.Configuration(configuration)
                   .CreateLogger();
-            return logger;
+
         }
+
         public void SendMessage(Pizza pizza)
         {
-            var Log = CreateLog();
+
             pizza.Guid = Guid.NewGuid().ToString();
             Log.Information("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             var newPizza = JsonSerializer.Serialize(pizza);
