@@ -5003,6 +5003,7 @@
       "Microsoft.Extensions.Hosting >= 5.0.0",
       "RabbitMQ.Client >= 6.2.2",
       "Serilog.AspNetCore >= 4.1.0",
+      "Serilog.Settings.Configuration >= 3.1.0",
       "StackExchange.Redis >= 2.2.62"
     ]
   },
@@ -5054,6 +5055,10 @@
           "Serilog.AspNetCore": {
             "target": "Package",
             "version": "[4.1.0, )"
+          },
+          "Serilog.Settings.Configuration": {
+            "target": "Package",
+            "version": "[3.1.0, )"
           },
           "StackExchange.Redis": {
             "target": "Package",
