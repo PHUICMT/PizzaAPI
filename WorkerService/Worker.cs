@@ -14,7 +14,9 @@ namespace WorkerService
 {
     public class Worker : BackgroundService
     {
-       
+        private static Random _random = new Random();
+        private static int ranNum;
+
         public static DotPizza convertedMessage { get; set; }
 
         public Worker()
@@ -41,6 +43,9 @@ namespace WorkerService
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += async (model, ea) =>
                 {
+                    ranNum = _random.Next(1, 4);
+                    await Task.Delay(ranNum * 1000);
+                    
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
                     await Task.Run(() => Tranfrom(message));
@@ -60,7 +65,7 @@ namespace WorkerService
                 Guid = message.Guid,
                 Information = "Name:" + message.Name + " | IsGlutenFree:" + message.IsGlutenFree
             };
-            Log.Information("|Guid: [" + convertedMessage.Guid + "] STEP 3 Recieved. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            Log.Information("|Guid: [" + convertedMessage.Guid + "] STEP 3 Recieved. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
         }
 
         async public static void Insert(DotPizza newPizza)
@@ -73,7 +78,7 @@ namespace WorkerService
             var db = redis.GetDatabase();
             string key = newPizza.Guid;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
-            Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
         }
     }
 }

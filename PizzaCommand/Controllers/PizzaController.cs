@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PizzaCommand.Models;
 using PizzaCommand.Services;
@@ -10,6 +12,8 @@ namespace PizzaCommand.Controllers
     [Route("command/[controller]")]
     public class PizzaController : ControllerBase
     {
+        private readonly Random _random = new Random(); 
+        private static int ranNum;
         private PizzaService _pizzaService;
         public PizzaController()
         {
@@ -18,9 +22,12 @@ namespace PizzaCommand.Controllers
 
         // POST action
         [HttpPost]
-        public IActionResult Create(Pizza pizza)
+        async public Task<ActionResult> Create(Pizza pizza)
         {
-            _pizzaService.SendMessage(pizza);
+            ranNum = _random.Next(1,4);
+            await Task.Delay(ranNum*1000);
+            
+            await _pizzaService.SendMessage(pizza);
             return CreatedAtAction(nameof(Create), new { id = pizza.Guid }, pizza);
         }
     }

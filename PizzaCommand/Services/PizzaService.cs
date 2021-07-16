@@ -4,16 +4,22 @@ using Serilog;
 using System.Text;
 using System.Text.Json;
 using System;
+using System.Threading.Tasks;
 
 namespace PizzaCommand.Services
 { 
     public class PizzaService
     {
+        private readonly Random _random = new Random(); 
+        private static int ranNum;
         public PizzaService()
         {
         }
-        public void SendMessage(Pizza pizza)
+        async public Task SendMessage(Pizza pizza)
         {
+            ranNum = _random.Next(1,4);
+            await Task.Delay(ranNum*1000);
+
             pizza.Guid = Guid.NewGuid().ToString();
             Log.Information("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             var newPizza = JsonSerializer.Serialize(pizza);
