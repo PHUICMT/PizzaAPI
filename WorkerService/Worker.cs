@@ -44,6 +44,7 @@ namespace WorkerService
                 consumer.Received += async (model, ea) =>
                 {
                     ranNum = _random.Next(1, 4);
+                    Log.Information("Random:" + ranNum);
                     await Task.Delay(ranNum * 1000);
                     
                     var body = ea.Body.ToArray();
@@ -79,6 +80,7 @@ namespace WorkerService
             string key = newPizza.Guid;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
             Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            
         }
     }
 }

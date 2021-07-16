@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PizzaCommand.Models;
 using PizzaCommand.Services;
-
+using Serilog;
 
 namespace PizzaCommand.Controllers
 {
@@ -25,6 +25,7 @@ namespace PizzaCommand.Controllers
         async public Task<ActionResult> Create(Pizza pizza)
         {
             ranNum = _random.Next(1,4);
+            Log.Information("Random:" + ranNum);
             await Task.Delay(ranNum*1000);
             
             await _pizzaService.SendMessage(pizza);

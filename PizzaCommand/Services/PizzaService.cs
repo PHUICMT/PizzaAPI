@@ -18,6 +18,7 @@ namespace PizzaCommand.Services
         async public Task SendMessage(Pizza pizza)
         {
             ranNum = _random.Next(1,4);
+            Log.Information("Random:" + ranNum);
             await Task.Delay(ranNum*1000);
 
             pizza.Guid = Guid.NewGuid().ToString();
