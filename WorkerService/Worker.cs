@@ -25,6 +25,7 @@ namespace WorkerService
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .Enrich.FromLogContext()
             .WriteTo.Console()
+            .WriteTo.File("./Logs/log.txt", rollingInterval: RollingInterval.Day)
             .CreateLogger();
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

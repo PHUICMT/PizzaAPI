@@ -10,11 +10,11 @@
         "projectUniqueName": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaProxy/PizzaProxy.csproj",
         "projectName": "PizzaProxy",
         "projectPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaProxy/PizzaProxy.csproj",
-        "packagesPath": "/root/.nuget/packages/",
+        "packagesPath": "/home/phu-ubuntu-rtx-on/.nuget/packages/",
         "outputPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaProxy/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/phu-ubuntu-rtx-on/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
