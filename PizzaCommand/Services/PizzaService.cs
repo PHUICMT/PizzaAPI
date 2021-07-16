@@ -15,12 +15,12 @@ namespace PizzaCommand.Services
         public PizzaService()
         {
         }
-        async public Task SendMessage(Pizza pizza)
+        async public Task SendMessage(Pizza pizza,int startTime)
         {
             ranNum = _random.Next(1,4);
             await Task.Delay(ranNum*1000);
-
             pizza.Guid = Guid.NewGuid().ToString();
+            pizza.startTime = startTime;
             Log.Information("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             var newPizza = JsonSerializer.Serialize(pizza);
             var factory = new ConnectionFactory() { HostName = "rabbitmq" };

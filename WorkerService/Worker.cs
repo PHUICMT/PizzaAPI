@@ -19,6 +19,8 @@ namespace WorkerService
 
         public static DotPizza convertedMessage { get; set; }
 
+        private static int startTime;
+
         public Worker()
         {
         }
@@ -45,7 +47,6 @@ namespace WorkerService
                 {
                     ranNum = _random.Next(1, 4);
                     await Task.Delay(ranNum * 1000);
-                    
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
                     await Task.Run(() => Tranfrom(message));
@@ -60,6 +61,7 @@ namespace WorkerService
         async public static void Tranfrom(string inputMessage)
         {
             Pizza message = JsonSerializer.Deserialize<Pizza>(inputMessage);
+            startTime = message.startTime;
             convertedMessage = new DotPizza
             {
                 Guid = message.Guid,
@@ -79,6 +81,8 @@ namespace WorkerService
             string key = newPizza.Guid;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
             Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            int totaltime = DateTime.Now.Second - startTime;
+            Log.Information("|startTime: " + startTime.ToString() + "s |endTime: " + DateTime.Now.Second + "s |Total: " + totaltime.ToString() + "s|");
         }
     }
 }

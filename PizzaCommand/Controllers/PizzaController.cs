@@ -24,10 +24,10 @@ namespace PizzaCommand.Controllers
         [HttpPost]
         async public Task<ActionResult> Create(Pizza pizza)
         {
+            int currTime = DateTime.Now.Second;
             ranNum = _random.Next(1,4);
             await Task.Delay(ranNum*1000);
-            
-            await _pizzaService.SendMessage(pizza);
+            await _pizzaService.SendMessage(pizza, currTime);
             return CreatedAtAction(nameof(Create), new { id = pizza.Guid }, pizza);
         }
     }
