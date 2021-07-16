@@ -4,15 +4,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using StackExchange.Redis;
 using System.Text;
 using System.Text.Json;
 using Serilog;
-using System.IO;
-
 namespace WorkerService
 {
     public class Worker : BackgroundService
@@ -22,19 +19,6 @@ namespace WorkerService
 
         public Worker()
         {
-        }
-        public static Serilog.ILogger CreateLog()
-        {
-            var configuration = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.Development.json")
-               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true)
-               .Build();
-
-            var logger = new LoggerConfiguration()
-                  .ReadFrom.Configuration(configuration)
-                  .CreateLogger();
-            return logger;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -70,7 +54,6 @@ namespace WorkerService
         }
         async public static void Tranfrom(string inputMessage)
         {
-            var Log = CreateLog();
             Pizza message = JsonSerializer.Deserialize<Pizza>(inputMessage);
             convertedMessage = new DotPizza
             {
@@ -82,7 +65,6 @@ namespace WorkerService
 
         async public static void Insert(DotPizza newPizza)
         {
-            var Log = CreateLog();
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {

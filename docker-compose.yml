@@ -31,11 +31,6 @@ services:
     build:
       context: WorkerService/
       dockerfile: Dockerfile
-    ports:
-      - 9200:80
-
-  
-  
 
 networks:
   default:
