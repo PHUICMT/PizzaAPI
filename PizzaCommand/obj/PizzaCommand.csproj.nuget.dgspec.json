@@ -10,11 +10,11 @@
         "projectUniqueName": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/PizzaCommand.csproj",
         "projectName": "PizzaCommand",
         "projectPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/PizzaCommand.csproj",
-        "packagesPath": "/root/.nuget/packages/",
+        "packagesPath": "/home/phu-ubuntu-rtx-on/.nuget/packages/",
         "outputPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaCommand/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/phu-ubuntu-rtx-on/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -41,6 +41,22 @@
             "RabbitMQ.Client": {
               "target": "Package",
               "version": "[6.2.2, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Serilog.Settings.Configuration": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Serilog.Sinks.Elasticsearch": {
+              "target": "Package",
+              "version": "[8.4.1, )"
             }
           },
           "imports": [

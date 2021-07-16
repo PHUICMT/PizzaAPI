@@ -10,11 +10,11 @@
         "projectUniqueName": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaQuery/PizzaQuery.csproj",
         "projectName": "PizzaQuery",
         "projectPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaQuery/PizzaQuery.csproj",
-        "packagesPath": "/root/.nuget/packages/",
+        "packagesPath": "/home/phu-ubuntu-rtx-on/.nuget/packages/",
         "outputPath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/PizzaQuery/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/home/phu-ubuntu-rtx-on/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

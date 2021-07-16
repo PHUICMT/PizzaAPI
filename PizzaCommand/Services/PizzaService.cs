@@ -1,24 +1,37 @@
 using PizzaCommand.Models;
 using RabbitMQ.Client;
-using Microsoft.Extensions.Logging;
+using Serilog;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 using System.Text;
 using System.Text.Json;
 using System;
 
 namespace PizzaCommand.Services
-{
+{ 
     public class PizzaService
     {
-        private static ILogger<PizzaService> _logger;        
-        public PizzaService() {
-            ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-            loggerFactory.AddFile("Logs/log-{Date}.txt");
-            _logger =  loggerFactory.CreateLogger<PizzaService>();
+        public PizzaService()
+        {
+        }
+        public Serilog.ILogger CreateLog()
+        {
+            var configuration = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.Development.json")
+               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true)
+               .Build();
+
+            var logger = new LoggerConfiguration()
+                  .ReadFrom.Configuration(configuration)
+                  .CreateLogger();
+            return logger;
         }
         public void SendMessage(Pizza pizza)
         {
+            var Log = CreateLog();
             pizza.Guid = Guid.NewGuid().ToString();
-            _logger.LogInformation("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            Log.Information("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             var newPizza = JsonSerializer.Serialize(pizza);
             var factory = new ConnectionFactory() { HostName = "rabbitmq" };
             using (var connection = factory.CreateConnection())
@@ -36,7 +49,7 @@ namespace PizzaCommand.Services
                                     routingKey: "pizzaAPI",
                                     basicProperties: null,
                                     body: body);
-                 _logger.LogInformation("|Guid: [" + pizza.Guid + "] STEP 2 Service to rabbitmq. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+                Log.Information("|Guid: [" + pizza.Guid + "] STEP 2 Service to rabbitmq. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             }
         }
     }

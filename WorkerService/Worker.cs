@@ -4,25 +4,37 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using StackExchange.Redis;
 using System.Text;
 using System.Text.Json;
+using Serilog;
+using System.IO;
 
 namespace WorkerService
 {
     public class Worker : BackgroundService
     {
-        private static ILogger<Worker> _logger;
+       
         public static DotPizza convertedMessage { get; set; }
 
         public Worker()
         {
-            ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-            loggerFactory.AddFile("Logs/log-{Date}.txt");
-            _logger = loggerFactory.CreateLogger<Worker>();
+        }
+        public static Serilog.ILogger CreateLog()
+        {
+            var configuration = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.Development.json")
+               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true)
+               .Build();
+
+            var logger = new LoggerConfiguration()
+                  .ReadFrom.Configuration(configuration)
+                  .CreateLogger();
+            return logger;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -58,17 +70,19 @@ namespace WorkerService
         }
         async public static void Tranfrom(string inputMessage)
         {
+            var Log = CreateLog();
             Pizza message = JsonSerializer.Deserialize<Pizza>(inputMessage);
             convertedMessage = new DotPizza
             {
                 Guid = message.Guid,
                 Information = "Name:" + message.Name + " | IsGlutenFree:" + message.IsGlutenFree
             };
-            _logger.LogInformation("|Guid: [" + convertedMessage.Guid + "] STEP 3 Recieved. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            Log.Information("|Guid: [" + convertedMessage.Guid + "] STEP 3 Recieved. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
         }
 
         async public static void Insert(DotPizza newPizza)
         {
+            var Log = CreateLog();
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {
@@ -77,7 +91,7 @@ namespace WorkerService
             var db = redis.GetDatabase();
             string key = newPizza.Guid;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
-            _logger.LogInformation("|Guid: [" + key + "] STEP 4 Send to Redis. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: "+ DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
         }
     }
 }
