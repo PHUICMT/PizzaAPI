@@ -1,25 +1,35 @@
 using PizzaCommand.Models;
 using RabbitMQ.Client;
 using Serilog;
-using Serilog.Events;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 using System.Text;
 using System.Text.Json;
 using System;
 
 namespace PizzaCommand.Services
-{
+{ 
     public class PizzaService
     {
         public PizzaService()
         {
-            Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-            .Enrich.FromLogContext()
-            .WriteTo.Console()
-            .CreateLogger();
+        }
+        public Serilog.ILogger CreateLog()
+        {
+            var configuration = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.Development.json")
+               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true)
+               .Build();
+
+            var logger = new LoggerConfiguration()
+                  .ReadFrom.Configuration(configuration)
+                  .CreateLogger();
+            return logger;
         }
         public void SendMessage(Pizza pizza)
         {
+            var Log = CreateLog();
             pizza.Guid = Guid.NewGuid().ToString();
             Log.Information("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             var newPizza = JsonSerializer.Serialize(pizza);
