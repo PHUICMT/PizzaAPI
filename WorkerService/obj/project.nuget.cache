@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WrBPFkSjQpLiMXSEpxrU2ZeblATJJYYPvEQkimbfZEc+GyHxDTy11LvcPxtLYy2vuU6yM3TwQ0kWCyF3PqGZ9g==",
+  "dgSpecHash": "VXXsUv5s8//5B2OihIVJikoahOzZRND+cTEo1ktO9MRcoEsVMw2jN96ZoTqeZ0PxBFycpaH5NzGmUPvAg+qeCw==",
   "success": true,
   "projectFilePath": "/home/phu-ubuntu-rtx-on/Test_Project/PizzaAPI/WorkerService/WorkerService.csproj",
   "expectedPackageFiles": [
