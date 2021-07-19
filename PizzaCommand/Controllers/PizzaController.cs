@@ -25,13 +25,13 @@ namespace PizzaCommand.Controllers
         async public Task<ActionResult> Create(Pizza pizza)
         {
             ranNum = _random.Next(1,4);
-            Log.Information("Random:" + ranNum);
+            // Log.Information("Random:" + ranNum);
             await Task.Delay(ranNum*1000);
             
             await _pizzaService.SendMessage(pizza);
 
             await _pizzaService.SendRandomNumber(ranNum);
-            
+
             return CreatedAtAction(nameof(Create), new { id = pizza.Guid }, pizza);
         }
     }

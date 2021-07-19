@@ -48,7 +48,7 @@ namespace WorkerService
                 consumer.Received += async (model, ea) =>
                 {
                     ranNum = _random.Next(1, 4);
-                    Log.Information("Random:" + ranNum);
+                    // Log.Information("Random:" + ranNum);
                     await Task.Delay(ranNum * 1000);
 
                     var body = ea.Body.ToArray();
