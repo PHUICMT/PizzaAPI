@@ -47,7 +47,7 @@ namespace WorkerService
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += async (model, ea) =>
                 {
-                    ranNum = _random.Next(1, 4);
+                    ranNum = _random.Next(0, 4);
                     // Log.Information("Random:" + ranNum);
                     await Task.Delay(ranNum * 1000);
 
@@ -127,15 +127,27 @@ namespace WorkerService
             DateTime startTime = DateTime.Now;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
 
-            Console.WriteLine(db.StringGet("[Time]"+key));
-            startTime = DateTime.Parse(db.StringGet("[Time]"+key));
+            // Console.WriteLine(db.StringGet("[Time]" + key));
+            string timeString = db.StringGet("[Time]" + key);
+            startTime = DateTime.Parse(timeString.Replace("\"", ""));
 
             TimeSpan totalTime = DateTime.Now - startTime;
 
             Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
-            Log.Information("================= TOTAL Random Number IS [" + ranNum + "] =================");
-            Log.Information("================= TOTAL TIME IS [" + totalTime.ToString() + "] =================");
-            
+            string taskResult;
+            if (totalTime.TotalSeconds > 3)
+            {
+                taskResult = "SLA FAIL [";
+                
+            }
+            else
+            {
+                 taskResult = "SLA PASS [";
+            }
+
+            Log.Information(taskResult + key + "] TOTAL TIME IS " + totalTime.ToString() + " sec.");
+
+
         }
     }
 }

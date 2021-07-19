@@ -17,7 +17,7 @@ namespace PizzaCommand.Services
         }
         async public Task SendMessage(Pizza pizza)
         {
-            ranNum = _random.Next(1, 4);
+            ranNum = _random.Next(0, 4);
             // Log.Information("Random:" + ranNum);
             await Task.Delay(ranNum * 1000);
 

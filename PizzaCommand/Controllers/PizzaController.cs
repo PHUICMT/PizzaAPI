@@ -37,7 +37,7 @@ namespace PizzaCommand.Controllers
 
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(DateTime.Now)));
 
-            ranNum = _random.Next(1, 4);
+            ranNum = _random.Next(0, 4);
             await Task.Delay(ranNum * 1000);
 
             await _pizzaService.SendMessage(pizza);
