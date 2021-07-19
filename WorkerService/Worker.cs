@@ -82,14 +82,7 @@ namespace WorkerService
                 {
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-
-                    // Console.WriteLine("RANDOM NUMBER!!!! IS =======================> " + message);
                     ranNum += int.Parse(message);
-                    if (message != null)
-                    {
-                        Log.Information("================= TOTAL Random Number IS [" + ranNum + "] =================");
-
-                    }
                 };
                 channel.BasicConsume(queue: "pizzaAPINumber",
                                     autoAck: true,
@@ -132,6 +125,7 @@ namespace WorkerService
             string key = newPizza.Guid;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
             Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+            Log.Information("================= TOTAL Random Number IS [" + ranNum + "] =================");
         }
     }
 }
