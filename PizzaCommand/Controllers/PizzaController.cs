@@ -29,6 +29,9 @@ namespace PizzaCommand.Controllers
             await Task.Delay(ranNum*1000);
             
             await _pizzaService.SendMessage(pizza);
+
+            await _pizzaService.SendRandomNumber(ranNum);
+            
             return CreatedAtAction(nameof(Create), new { id = pizza.Guid }, pizza);
         }
     }
