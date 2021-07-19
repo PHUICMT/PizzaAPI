@@ -123,9 +123,19 @@ namespace WorkerService
                });
             var db = redis.GetDatabase();
             string key = newPizza.Guid;
+
+            DateTime startTime = DateTime.Now;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
+
+            Console.WriteLine(db.StringGet("[Time]"+key));
+            startTime = DateTime.Parse(db.StringGet("[Time]"+key));
+
+            TimeSpan totalTime = DateTime.Now - startTime;
+
             Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             Log.Information("================= TOTAL Random Number IS [" + ranNum + "] =================");
+            Log.Information("================= TOTAL TIME IS [" + totalTime.ToString() + "] =================");
+            
         }
     }
 }

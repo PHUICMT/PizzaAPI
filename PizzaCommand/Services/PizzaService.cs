@@ -21,7 +21,6 @@ namespace PizzaCommand.Services
             // Log.Information("Random:" + ranNum);
             await Task.Delay(ranNum * 1000);
 
-            pizza.Guid = Guid.NewGuid().ToString();
             Log.Information("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
             var newPizza = JsonSerializer.Serialize(pizza);
             var factory = new ConnectionFactory() { HostName = "rabbitmq" };
