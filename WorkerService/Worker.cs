@@ -127,7 +127,6 @@ namespace WorkerService
             DateTime startTime = DateTime.Now;
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
 
-            // Console.WriteLine(db.StringGet("[Time]" + key));
             string timeString = db.StringGet("[Time]" + key);
             startTime = DateTime.Parse(timeString.Replace("\"", ""));
 
