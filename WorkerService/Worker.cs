@@ -119,7 +119,7 @@ namespace WorkerService
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {
-                   EndPoints = { "redis-query:3343" }
+                   EndPoints = { "redis-infra:6379" }
                });
             var db = redis.GetDatabase();
             string key = newPizza.Guid;
@@ -129,15 +129,15 @@ namespace WorkerService
             startTime = DateTime.Parse(timeString.Replace("\"", ""));
             TimeSpan totalTime = DateTime.Now - startTime;
 
-            redis = ConnectionMultiplexer.Connect(
+            ConnectionMultiplexer redis2 = ConnectionMultiplexer.Connect(
                 new ConfigurationOptions
                 {
                     EndPoints = { "redis-query:3343" }
                 });
 
-            db = redis.GetDatabase();
+            var db2 = redis2.GetDatabase();
             var pizzaSerialized = JsonSerializer.Serialize(newPizza);
-            await Task.Run(() => db.StringSet(key, pizzaSerialized));
+            await Task.Run(() => db2.StringSet(key, pizzaSerialized));
 
             Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
 

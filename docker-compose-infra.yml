@@ -4,7 +4,6 @@ services:
 
   redis-infra:
     image: redis:latest
-    container_name: redis-infra
     hostname: redis-infra
     ports:
       - 6379:6379
