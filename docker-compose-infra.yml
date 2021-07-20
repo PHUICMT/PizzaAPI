@@ -2,9 +2,9 @@ version: '3.5'
 
 services:
 
-  redis:
+  redis-infra:
     image: redis:latest
-    hostname: redis
+    hostname: redis-infra
     ports:
       - 6379:6379
   

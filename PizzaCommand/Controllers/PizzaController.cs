@@ -28,7 +28,7 @@ namespace PizzaCommand.Controllers
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {
-                   EndPoints = { "redis:6379" }
+                   EndPoints = { "redis-infra:6379" }
                });
             var db = redis.GetDatabase();
 
