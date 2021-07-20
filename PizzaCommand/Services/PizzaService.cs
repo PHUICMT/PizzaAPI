@@ -51,9 +51,8 @@ namespace PizzaCommand.Services
                });
             var db = redis.GetDatabase();
 
-            pizza.Guid = Guid.NewGuid().ToString();
             string key = pizza.Guid;
-
+            Log.Information(key);
             await Task.Run(() => db.StringSet(key, pizzaSerialized));
         }
 
