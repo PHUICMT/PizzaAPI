@@ -125,27 +125,34 @@ namespace WorkerService
             string key = newPizza.Guid;
 
             DateTime startTime = DateTime.Now;
-            await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(newPizza)));
-
             string timeString = db.StringGet("[Time]" + key);
             startTime = DateTime.Parse(timeString.Replace("\"", ""));
-
             TimeSpan totalTime = DateTime.Now - startTime;
 
+            redis = ConnectionMultiplexer.Connect(
+                new ConfigurationOptions
+                {
+                    EndPoints = { "redis-query:3343" }
+                });
+
+            db = redis.GetDatabase();
+            var pizzaSerialized = JsonSerializer.Serialize(newPizza);
+            await Task.Run(() => db.StringSet(key, pizzaSerialized));
+
             Log.Information("|Guid: [" + key + "] STEP 4 Send to Redis. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
+
             string taskResult;
             if (totalTime.TotalSeconds > 3)
             {
                 taskResult = "SLA FAIL [";
-                
+
             }
             else
             {
-                 taskResult = "SLA PASS [";
+                taskResult = "SLA PASS [";
             }
 
             Log.Information(taskResult + key + "] TOTAL TIME IS " + totalTime.ToString() + " sec.");
-
 
         }
     }

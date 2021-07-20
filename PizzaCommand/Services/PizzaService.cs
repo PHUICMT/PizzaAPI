@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System;
 using System.Threading.Tasks;
+using StackExchange.Redis;
 
 namespace PizzaCommand.Services
 {
@@ -18,11 +19,10 @@ namespace PizzaCommand.Services
         async public Task SendMessage(Pizza pizza)
         {
             ranNum = _random.Next(0, 4);
-            // Log.Information("Random:" + ranNum);
             await Task.Delay(ranNum * 1000);
 
             Log.Information("|Guid: [" + pizza.Guid + "] STEP 1 Post. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
-            var newPizza = JsonSerializer.Serialize(pizza);
+            var pizzaSerialized = JsonSerializer.Serialize(pizza);
             var factory = new ConnectionFactory() { HostName = "rabbitmq" };
             using (var connection = factory.CreateConnection())
             {
@@ -34,7 +34,7 @@ namespace PizzaCommand.Services
                                         autoDelete: false,
                                         arguments: null);
 
-                    var body = Encoding.UTF8.GetBytes(newPizza);
+                    var body = Encoding.UTF8.GetBytes(pizzaSerialized);
 
                     channel.BasicPublish(exchange: "",
                                         routingKey: "pizzaAPI",
@@ -42,8 +42,19 @@ namespace PizzaCommand.Services
                                         body: body);
                     Log.Information("|Guid: [" + pizza.Guid + "] STEP 2 Service to rabbitmq. Time: " + DateTime.Now + " " + DateTime.Now.Millisecond + "ms");
                 }
-
             }
+
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
+               new ConfigurationOptions
+               {
+                   EndPoints = { "redis-command:3333" }
+               });
+            var db = redis.GetDatabase();
+
+            pizza.Guid = Guid.NewGuid().ToString();
+            string key = pizza.Guid;
+
+            await Task.Run(() => db.StringSet(key, pizzaSerialized));
         }
 
         async public Task SendRandomNumber(int randomNumber)

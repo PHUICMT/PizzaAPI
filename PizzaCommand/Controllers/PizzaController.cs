@@ -34,7 +34,6 @@ namespace PizzaCommand.Controllers
 
             pizza.Guid = Guid.NewGuid().ToString();
             string key = "[Time]"+pizza.Guid;
-
             await Task.Run(() => db.StringSet(key, JsonSerializer.Serialize(DateTime.Now)));
 
             ranNum = _random.Next(0, 4);
