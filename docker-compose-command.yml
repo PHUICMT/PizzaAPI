@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+
+  redis-command:
+    image: redis:latest
+    hostname: redis-command
+    command: --port 3333
+    ports:
+      - 3333:3333
+
+  pizza-command:
+    image: pizzacommand
+    build:
+      context: PizzaCommand/
+      dockerfile: Dockerfile
+    ports:
+        - 8001:80
+
+networks:
+  default:
+    external: true
+    name: pizzaapi_default
+
