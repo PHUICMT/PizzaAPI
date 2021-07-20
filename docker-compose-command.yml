@@ -1,6 +1,7 @@
 version: '3.5'
 
 services:
+
   redis-command:
     image: redis:latest
     hostname: redis-command
