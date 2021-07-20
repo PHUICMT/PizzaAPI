@@ -119,7 +119,7 @@ namespace WorkerService
             ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
                new ConfigurationOptions
                {
-                   EndPoints = { "redis-infra:6379" }
+                   EndPoints = { "redis-query:3343" }
                });
             var db = redis.GetDatabase();
             string key = newPizza.Guid;

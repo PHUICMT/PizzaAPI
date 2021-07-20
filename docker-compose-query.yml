@@ -4,6 +4,7 @@ services:
 
   redis-query:
     image: redis:latest
+    container_name: redis-query
     hostname: redis-query
     command: --port 3343
     ports:

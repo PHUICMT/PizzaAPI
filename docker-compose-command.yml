@@ -4,6 +4,7 @@ services:
 
   redis-command:
     image: redis:latest
+    container_name: redis-command
     hostname: redis-command
     command: --port 3333
     ports:
